@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>page 2</h1>
+    <script>
+      let number = Array.from({ length: 10 }, (_, i) => i + 1);
+      console.log(Math.max(...number));
+      let arr = [1, 141, 23, 10, 9, 92];
+      function largest(a) {
+        let num = 0;
+        for (let i = 0; i < a.length; i++) {
+          if (a[i] >= num) {
+            num = a[i];
+          }
+        }
+        return num;
+      }
+      console.log(largest(arr));
+    </script>
+  </body>
+</html>

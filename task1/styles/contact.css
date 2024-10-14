@@ -1,0 +1,106 @@
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Inter;
+}
+
+:root {
+  --font-default: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-primary: "Amatic SC", sans-serif;
+  --font-secondary: "Inter", sans-serif;
+  --color-default: #212529;
+  --color-light-grey: #eee;
+  --color-secondary: #37373f;
+  --color-tertiary: #7f7f90;
+  --light-color: white;
+  --red-color: #ff305b;
+  --dark-red-color: #feae6f;
+  --blue-color: #01204e;
+  --teal-color: #028391;
+  --beige-color: #f6dcac;
+  --orange-color: #feae6f;
+  --padding: 0.75rem 2.5rem;
+  --paddding-bottom: 3rem;
+  --gap: 0.9375rem;
+  --animation-duration: 400ms;
+}
+
+/* Start Map Container */
+.map-container {
+  width: 90%;
+  margin: auto;
+}
+
+.main-title {
+  text-align: center;
+  margin-bottom: 1.5625rem;
+  padding-top: 3.125rem;
+}
+
+.main-title span {
+  color: var(--dark-red-color);
+}
+
+.main-title h2 {
+  color: var(--color-tertiary);
+  font-weight: 400;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+}
+
+.main-title p {
+  font-size: 3.125rem;
+  font-family: var(--font-primary);
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 21.875rem;
+  padding: 20px 0;
+}
+/* End Map Container */
+
+/* Start Help Contact Container */
+.help-contact .details {
+  display: grid;
+  grid-template-columns:repeat(2,1fr) ;
+  gap: var(--gap);
+  width: 90%;
+  margin: auto;
+}
+
+.details .address,
+.email,
+.phone,
+.opening-hour {
+  background-color: var(--color-light-grey);
+  padding: 1.5625rem;
+  display: flex;
+}
+
+.help-contact .icon {
+  width: 3.125rem;
+  height: 3.125rem;
+  background-color: var(--dark-red-color);
+  color: var(--color-light-grey);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+/* End Help Contact Container */
+
