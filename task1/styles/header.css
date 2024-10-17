@@ -33,6 +33,11 @@ h3 {
   border-radius: 4px;
   background: #1f1f1f;
   color: white;
+  padding: 10px;
+  border: none;
+  &:hover {
+    background-color: #4c4848;
+  }
 }
 
 header {

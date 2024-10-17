@@ -1,17 +1,11 @@
 import { createCard } from "./createCart.js";
-import {
-  getLocalStorage,
-  setLocalStorage,
-  getLocalStorageUser,
-} from "./localStorage.js";
-
-const cardProduct = document.querySelector(".single-product");
+import { getAllUsers, setAllUsers } from "./localStorage.js";
 
 export const getAllProducts = async () => {
-  const apiUrl = "https://fakestoreapi.com/products";
+  const apiUrl = "https://dummyjson.com/products";
   const response = await fetch(apiUrl);
   const products = await response.json();
-  return products;
+  return products.products.map((prod) => ({id: prod.id, title: prod.title, image: prod.images[0], price: prod.price, category: prod.category }))
 };
 
 const displayPageContent = async () => {
@@ -20,7 +14,9 @@ const displayPageContent = async () => {
   displayCategories(products);
 };
 
-displayPageContent();
+document.addEventListener("DOMContentLoaded", () => {
+  displayPageContent();
+});
 
 function displayCategories(
   products,
@@ -29,6 +25,7 @@ function displayCategories(
   handleEvent = addToCart
 ) {
   const cardCategory = document.querySelector(".single-category");
+  const cardProduct = document.querySelector(".single-product");
 
   const displayAllProduct = document.createElement("div");
   displayAllProduct.classList.add("col-6", "col-md", "card");
@@ -83,7 +80,14 @@ function displayProducts(
   style = "btn-primary",
   handleEvent = addToCart
 ) {
+  const cardProduct = document.querySelector(".single-product");
   cardProduct.innerHTML = "";
+
+  if (products.length === 0) {
+    cardProduct.innerHTML = "<p>No products available.</p>";
+    return;
+  }
+
   products.forEach((prod) => {
     const card = createCard(prod, cartName, style, handleEvent);
     cardProduct.appendChild(card);
@@ -93,45 +97,31 @@ function displayProducts(
 export async function addToCart(e, prodID) {
   const products = await getAllProducts();
   const currentProduct = products.find((prod) => prod.id === prodID);
-  let cart = getLocalStorage();
 
-  const currentProductExistInLocalStorage = cart.find(
+  const users = getAllUsers();
+  const currentUser = users.find((user) => user.isLoggedIn === true);
+
+
+  if (!currentUser) {
+    alert("Please create new account to add product to your cart");
+    return;
+  }
+
+
+  const currentProductExistInUserCart = currentUser.cart.find(
     (item) => item.id === prodID
   );
 
-  if (!currentProductExistInLocalStorage) {
-    currentProduct.quantity = 1;
-    cart.push(currentProduct);
+  if (!currentProductExistInUserCart) {
+    currentProduct.quantity = 1
+    currentUser.cart.push(currentProduct); // Spread currentProduct to keep its properties
   } else {
-    currentProductExistInLocalStorage.quantity++;
+    // If the product exists, increment the quantity
+    currentProductExistInUserCart.quantity++;
   }
-  setLocalStorage(cart);
-  alert(`Add to cart succesfully!`);
+
+  // Save the updated users array back to local storage
+  setAllUsers(users);
+
+  alert("Added to cart successfully!");
 }
-
-function logOutButton() {
-  const logout = document.getElementById("logout");
-  let logOutButton = document.createElement("button");
-  // logOutButton.className = "log-out-button"
-  logOutButton.innerText = "Log Out";
-  logout.appendChild(logOutButton);
-  logOutButton.addEventListener("click", (e) => {
-    localStorage.removeItem("sessionToken");
-    window.location.href = "logout.html";
-  });
-}
-
-logOutButton();
-
-function userName() {
-  const userName = document.getElementById("userName");
-  let h3 = document.createElement("h3");
-  // logOutButton.className = "log-out-button"
-  let users = getLocalStorageUser();
-  console.log(users);
-  const currentUser = users.map((el) => el.name);
-  h3.innerHTML = `${currentUser}`;
-  userName.appendChild(h3);
-}
-
-userName();

@@ -15,19 +15,24 @@
     <main class="container">
       <h3>Shopping Cart</h3>
       <div class="total-price d-flex justify-content-center gap-4">
-        <h4>Total Price:</h4>
+        <h4></h4>
       </div>
       <div id="card-order" class="order row gap-3"></div>
     </main>
 
+    <script type="module" src="./javascript/cart.js"></script>
     <script>
-      fetch("/header.html")
+      document.addEventListener("DOMContentLoaded", () => {
+        fetch("./header.html")
         .then((response) => response.text())
         .then((data) => {
           document.getElementById("header").innerHTML = data;
+          let script = document.createElement("script");
+          script.type = "module";
+          script.src = "./javascript/header.js";
+          document.body.appendChild(script);
         });
+      });
     </script>
-
-    <script type="module" src="./javascript/cart.js"></script>
   </body>
 </html>

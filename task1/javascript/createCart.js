@@ -1,5 +1,3 @@
-import { addToCart } from "./home.js";
-
 export function createCard(prod, cartName, style,handleEvent) {
   const card = document.createElement("div");
   // card.classList.add("col","col-sm-3","col-md");

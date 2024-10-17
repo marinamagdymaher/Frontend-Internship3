@@ -16,32 +16,13 @@
   </head>
   <body>
     <div id="header"></div>
-    <div id="logout"></div>
-    <div id="userName"></div>
-
-    <script>
-      fetch("/header.html")
-        .then((response) => response.text())
-        .then((data) => {
-          document.getElementById("header").innerHTML = data;
-        });
-    </script>
     <article>
       <h1>Shopping Website</h1>
     </article>
 
     <section class="category container">
       <h3>Shopping by Categories</h3>
-      <div class="single-category row gap-1 text-center">
-        <!-- <div class="col">
-          <img
-            src="./img/girl.png"
-            alt="girl.png"
-            class="img-fluid rounded-circle"
-          />
-          <p>T-shirt</p>
-        </div> -->
-      </div>
+      <div class="single-category row gap-1 text-center"></div>
     </section>
     <section id="product" class="container">
       <h3>Our Product</h3>
@@ -50,6 +31,19 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="module" src="./javascript/home.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        fetch("./header.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header").innerHTML = data;
+          let script = document.createElement("script");
+          script.type = "module";
+          script.src = "./javascript/header.js";
+          document.body.appendChild(script);
+        });
+      });
+    </script>
   </body>
 </html>
 <!-- style="display: grid; grid-template-columns: repeat(4, 1fr)" -->
