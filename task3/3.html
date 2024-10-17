@@ -7,13 +7,20 @@
   </head>
   <body>
     <h1>page3</h1>
-    <input type="text" placeholder="Enter a String" />
+    <input type="text" placeholder="Enter a String" class="stringReversed" />
     <button id="enter">Enter</button>
+    <p class="reversed"></p>
     <script>
-      const s = document.getElementById("enter");
-      s.addEventListener("click", function () {
-      });
-      console.log(s);
+      const enter = document.getElementById("enter");
+      enter.addEventListener("click", reservedString);
+
+      function reservedString() {
+        const stringReversed = document.querySelector(".stringReversed").value;
+        const splitString = stringReversed.split("").reverse().join("");
+        const reversed = document.querySelector(".reversed");
+        reversed.innerHTML = splitString;
+        document.querySelector(".stringReversed").value = "";
+      }
     </script>
   </body>
 </html>
