@@ -14,7 +14,6 @@ export async function createUserCard(
 
 
   const cart = currentUser.cart;
-console.log(cart);
 
   if (!currentUser) {
     alert("No user logged in. Please log in to view your cart.");

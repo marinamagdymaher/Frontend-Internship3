@@ -10,7 +10,6 @@ export const getAllProducts = async () => {
 
 const displayPageContent = async () => {
   const products = await getAllProducts();
-  console.log(products);
   displayProducts(products);
   displayCategories(products);
 };
