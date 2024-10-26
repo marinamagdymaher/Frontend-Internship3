@@ -5,13 +5,36 @@ export const getAllProducts = async () => {
   const apiUrl = "https://dummyjson.com/products";
   const response = await fetch(apiUrl);
   const products = await response.json();
-  return products.products.map((prod) => ({id: prod.id, title: prod.title, image: prod.images[0], price: prod.price, category: prod.category, rating:prod.rating }))
+  return products.products.map((prod) => ({
+    id: prod.id,
+    title: prod.title,
+    image: prod.images[0],
+    price: prod.price,
+    category: prod.category,
+    rating: prod.rating,
+  }));
 };
 
 const displayPageContent = async () => {
-  const products = await getAllProducts();
-  displayProducts(products);
-  displayCategories(products);
+  document.getElementById("loader").style.display = "block";
+  document.getElementById("content").style.display = "none";
+
+  const errorMsg = document.getElementById("error");
+  errorMsg.style.display = "none";
+  try {
+    const products = await getAllProducts();
+    displayProducts(products);
+    displayCategories(products);
+
+    document.getElementById("content").style.display = "block";
+    document.getElementById("loader").style.display = "none";
+    errorMsg.style.display = "none";
+  } catch (error) {
+    document.getElementById("loader").style.display = "none";
+    errorMsg.style.display = "block";
+    errorMsg.innerText = "Failed to load products.";
+    console.error("Error fetching products:", error);
+  }
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -101,19 +124,17 @@ export async function addToCart(e, prodID) {
   const users = getAllUsers();
   const currentUser = users.find((user) => user.isLoggedIn === true);
 
-
   if (!currentUser) {
     alert("Please create new account to add product to your cart");
     return;
   }
-
 
   const currentProductExistInUserCart = currentUser.cart.find(
     (item) => item.id === prodID
   );
 
   if (!currentProductExistInUserCart) {
-    currentProduct.quantity = 1
+    currentProduct.quantity = 1;
     currentUser.cart.push(currentProduct); // Spread currentProduct to keep its properties
   } else {
     // If the product exists, increment the quantity
