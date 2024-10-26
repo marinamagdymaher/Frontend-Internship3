@@ -8,6 +8,7 @@ export function createCard(prod, cartName, style,handleEvent) {
   style="width: 100%; height: 12rem; object-fit: contain;" />
   <div class="card-body mt-auto">
     <h5 class="card-title">${prod.title}</h5>
+    <h6 class="card-title"> Rate:${prod.rating}</h6>
     <p class="card-text font-weight-bold">$ ${prod.price}</p>
     <p class="card-text font-weight-bold"> ${prod.quantity || ""} </p>
     <a class="btn ${style}">${cartName}</a>

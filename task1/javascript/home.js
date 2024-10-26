@@ -5,11 +5,12 @@ export const getAllProducts = async () => {
   const apiUrl = "https://dummyjson.com/products";
   const response = await fetch(apiUrl);
   const products = await response.json();
-  return products.products.map((prod) => ({id: prod.id, title: prod.title, image: prod.images[0], price: prod.price, category: prod.category }))
+  return products.products.map((prod) => ({id: prod.id, title: prod.title, image: prod.images[0], price: prod.price, category: prod.category, rating:prod.rating }))
 };
 
 const displayPageContent = async () => {
   const products = await getAllProducts();
+  console.log(products);
   displayProducts(products);
   displayCategories(products);
 };
